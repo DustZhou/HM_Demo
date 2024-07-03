@@ -21,9 +21,15 @@ struct Index {
   private scrollerForScroll: Scroller = new Scroller();
   private scrollerForList: Scroller = new Scroller();
 
+  @State
   private contacts: Array<object> = []
 
 
+
+
+  onPageShow() {
+    this.initData()
+  }
 
   initData(){
     // 循环添加联系人
@@ -32,42 +38,22 @@ struct Index {
     }
   }
 
-  constructor() {
-    super();
-    this.initData(); // 如果需要在组件加载时立即初始化
-  }
-
   @Builder
   listBuilder() {
-    List({ space: this.contacts.length, scroller: this.scrollerForList }) {
+    List({ scroller: this.scrollerForList }) {
       ForEach(this.contacts, (item: Contact) => {
         ListItem() {
-          Row() {
-            Image(item.icon)
-              .width("100%")
-              .height("100%")
-              .border({ width: 1 })
-                // 保持宽高比进行缩小或者放大，使得图片完全显示在显示边界内。
-              .objectFit(ImageFit.Contain)
-              .margin(15)
-              .overlay('Contain', { align: Alignment.Center, offset: { x: 0, y: 20 } })
-
+          Column() {
+            Image($r('app.media.foreground'))
+              .width(20)
+              .height(20)
+              .backgroundColor(Color.Red)
             Text(item.name)
-              .width("100%")
-              .height("100%")
+              .width(50)
+              .height(20)
               .textAlign(TextAlign.Center)
-              .borderRadius("24vp")
-              .fontSize("16fp")
-              .fontWeight("500")
-              .padding({ left: "12vp" })
-              .backgroundColor(Color.White)
             }
-            .width("100%")
-            .alignItems(VerticalAlign.Center)
         }
-        .width("100%")
-        .height("50vp")
-
       }, (item: string) => JSON.stringify(item))
     }
     .padding({
