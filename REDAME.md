@@ -1,6 +1,9 @@
 # 项目参考:
 ## 1.https://github.com/HarmonyCandies/loading_more_list
    * 关于list的界面
+## 2.https://github.com/AbnerMing888/HarmonyOsDataStore.git
+
+## 3.https://gitee.com/harmonyos-cases/cases.git
 
 
 
