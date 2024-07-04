@@ -3,6 +3,8 @@
     "pages/Index",
     "pages/Test/DataPassTest/FirstPage",
     "pages/Test/DataPassTest/SecondPage",
-    "pages/Test/DataPassTest/ThreePage"
+    "pages/Test/DataPassTest/ThreePage",
+    "pages/indexChildPage/IndexInfoPage",
+    "pages/indexChildPage/SystemSetPage"
   ]
 }

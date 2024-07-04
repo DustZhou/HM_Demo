@@ -1,5 +1,5 @@
 import util from '@ohos.util';
-import { itemView, firstitemView } from './itemView';
+import { itemView, firstitemView , iconViewTest ,TitleView} from './itemView';
 import { promptAction, router } from '@kit.ArkUI';
 
 
@@ -91,7 +91,7 @@ struct Index {
       new Contact("第三个页面", $r('app.media.foreground'), 'pages/Test/DataPassTest/ThreePage')
     )
     // 循环添加联系人
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
       this.contacts.push(new Contact("测试" + i, $r('app.media.foreground'), ""))
     }
   }
@@ -102,29 +102,48 @@ struct Index {
    */
   @Builder
   listBuilder() {
-    // 使用List组件，并设置其属性
-    List({ space: 5, scroller: this.scrollerForList }) {
-      // 遍历联系人列表，为每个联系人创建一个列表项
-      ForEach(this.contacts, (item: Contact) => {
-        ListItem() {
-          // 设置列表项的图标和标题
-          itemView({ icon: item.icon, title: item.name , url : item.url})
-        }
-      }, (item: string) => JSON.stringify(item))
-    } // 设置列表的内边距、宽度、边缘效果、滚动条状态、网格跨度和列数
-    .padding({
-      left: "10vp",
-      right: "10vp"
-    })
-    .width("100%")
-    .edgeEffect(EdgeEffect.Fade)
-    .scrollBar(BarState.Off)
-    .gridSpan(4)
-    .lanes(4)
-    .nestedScroll({
-      scrollForward: NestedScrollMode.PARENT_FIRST,
-      scrollBackward: NestedScrollMode.SELF_FIRST
-    })
+    Column( { space: 5 })  {
+      Row({ space: 5 }) {
+        Text()
+          .backgroundColor(Color.Blue)
+          .width(5)
+          .height(25)
+
+        Text("常用功能")
+          .fontSize("18fp")
+          .fontColor(Color.Black)
+          .height(25)
+      }
+      .width("90%")
+      .margin({
+        top: 10
+      })
+      Divider().height(1).width("100%").backgroundColor(Color.Black)
+      // 使用List组件，并设置其属性
+      List({ space: 5, scroller: this.scrollerForList }) {
+        // 遍历联系人列表，为每个联系人创建一个列表项
+        ForEach(this.contacts, (item: Contact) => {
+          ListItem() {
+            // 设置列表项的图标和标题
+            itemView({ icon: item.icon, title: item.name , url : item.url})
+          }
+        }, (item: string) => JSON.stringify(item))
+      } // 设置列表的内边距、宽度、边缘效果、滚动条状态、网格跨度和列数
+      .padding({
+        left: "10vp",
+        right: "10vp"
+      })
+      .width("100%")
+      .height("100%")
+      .edgeEffect(EdgeEffect.Fade)
+      .scrollBar(BarState.Off)
+      .gridSpan(4)
+      .lanes(4)
+      .nestedScroll({
+        scrollForward: NestedScrollMode.PARENT_FIRST,
+        scrollBackward: NestedScrollMode.SELF_FIRST
+      })
+    }
   }
 
   /**
@@ -133,19 +152,9 @@ struct Index {
   build() {
     // 创建主视图列，并设置其属性
     Column() {
-      // 创建显示消息的文本，并设置其样式和布局属性
-      Text(this.message)
-        .fontSize("30fp")
-        .fontWeight(FontWeight.Bold)
-        .height("56vp")
-        .textAlign(TextAlign.Start)
-        .width("100%")
-        .padding({
-          top: "10vp",
-          left: "25vp",
-          right: "10vp",
-          bottom: "10vp"
-        })
+
+      TitleView({message : this.message})
+
       // 创建包含可滚动区域的堆栈，并设置其属性
       Stack({ alignContent: Alignment.Top }) {
         // 创建可滚动视图，并设置其背景颜色和滚动条状态
@@ -155,22 +164,19 @@ struct Index {
             // 插入列表构建器创建的联系人列表
             Column() {
               this.listBuilder()
-            }.height("100%")
-          }.backgroundColor(Color.Pink)
+            }
+          }
         }
-        .backgroundColor(Color.Orange)
         .scrollBar(BarState.Off)
         .width("100%")
         .height("100%")
       }
       // 设置堆栈的背景颜色、高度和宽度
-      .backgroundColor(Color.Pink)
       .height("calc(100% - 60vp)")
       .width('100%')
     }
     // 设置主视图列的高度、背景颜色
     .height("100%")
-    .backgroundColor(Color.Gray)
   }
 }
 
